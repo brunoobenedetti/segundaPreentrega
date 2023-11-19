@@ -9,6 +9,9 @@ import productsRouter from './routers/views/products.router.js'
 import cartsRouter from './routers/views/carts.router.js'
 import rtpRouter from './routers/views/rtp.router.js'
 import chatRouter from './routers/views/chat.router.js'
+import indexRouter from './routers/views/login.router.js';
+import sessionsRouter from './routers/views/sessions.router.js';
+
 
 const app = express()
 
@@ -19,6 +22,9 @@ app.use(express.static(path.join(__dirname, '../public')))
 app.engine('handlebars', handlebars.engine())
 app.set('views', path.join(__dirname, './views'))
 app.set('view engine', 'handlebars')
+
+app.use('/', indexRouter);
+app.use('/api', sessionsRouter);
 
 app.use('/api/products', productsApiRouter)
 app.use('/api/carts', cartsApiRouter)
