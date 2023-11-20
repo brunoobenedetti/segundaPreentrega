@@ -1,7 +1,10 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
+import expressSession from 'express-session';
+import MongoStore from 'connect-mongo';
 import path from 'path'
 import { __dirname } from './utils.js'
+import  {URI} from '../src/db/mongodb.js';
 
 import productsApiRouter from './routers/api/products.router.js'
 import cartsApiRouter from './routers/api/carts.router.js'
@@ -14,6 +17,19 @@ import sessionsRouter from './routers/views/sessions.router.js';
 
 
 const app = express()
+
+const SESSION_SECRET = 'qBvPkU2X;J1,51Z!~2p[JW.DT|g:4l@';
+
+app.use(expressSession({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: URI,
+    mongoOptions: {},
+    ttl: 120,
+  }), 
+}));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

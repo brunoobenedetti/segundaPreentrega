@@ -62,5 +62,5 @@ socketServer.on('connection', async (socket) => {
 })
 
 server.listen(PORT, () => {
-    console.log(`Server running in http://localhost:${PORT}/`)
+    console.log(`Server running in http://localhost:${PORT}/login`)
 })
